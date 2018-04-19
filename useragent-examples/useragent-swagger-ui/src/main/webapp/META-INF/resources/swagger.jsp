@@ -19,8 +19,9 @@
   #L%
   --%>
 <%@page import="java.net.URL"%>
-<%@page import="java.util.Set"%>
+<%@page import="java.util.*"%>
 <%@page import="java.io.*"%>
+<%@page import="java.nio.charset.StandardCharsets"%>
 <%
     response.setHeader("Access-Control-Allow-Origin", "*");
     response.setHeader("Access-Control-Allow-Headers","Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
@@ -159,6 +160,12 @@
 			<a id="logo" href="http://swagger.io"><img class="logo__img" alt="swagger" height="30" width="30"
 				src="images/logo_small.png" /><span class="logo__title">swagger</span></a>
 			<form id='api_selector'>
+			<%
+            String dateTimeString = Long.toString(new Date().getTime());
+            byte[] nonceByte = dateTimeString.getBytes(StandardCharsets.UTF_8);
+            String nonce= Base64.getEncoder().encodeToString(nonceByte);
+            %>
+             <input name="nonce" type="hidden" value="<%=nonce %>"></input>
 				<div class="input">
 					<select id="input_baseUrl" name="baseUrl">
 					</select>
